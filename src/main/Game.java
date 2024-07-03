@@ -1,10 +1,13 @@
 package src.main;
 
+/**
+ * In this class we link all the format components and inputs together
+ */
 public class Game {
-    private final GameWindow gameWindow;
-    private final GamePanel gamePanel;
+
     public Game() {
-        gamePanel = new GamePanel();
-        gameWindow = new GameWindow(gamePanel);
+        GamePanel gamePanel = new GamePanel();
+        GameWindow gameWindow = new GameWindow(gamePanel);
+        gamePanel.requestFocus();
     }
 }
