@@ -12,7 +12,7 @@ public class GameWindow extends JFrame {
      * è importante metterla in fondo al costruttore per evitare bug visivi.
      */
     public GameWindow(GamePanel gamePanel){
-        setSize(1600, 1000);
+        setSize(400, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         add(gamePanel);
         setLocationRelativeTo(null);

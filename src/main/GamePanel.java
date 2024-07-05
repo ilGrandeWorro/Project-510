@@ -5,6 +5,7 @@ import src.inputs.MouseInputs;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 /**
  * GamePanel è la classe che mostra il quadro di gioco, collega gli input
@@ -15,10 +16,11 @@ public class GamePanel extends JPanel {
      * I parametri Delta indicano di quanto spostiamo l'oggetto
      * dalla posizione iniziale
      */
-    private int xDelta = 100;
-    private int yDelta = 100;
-    private int xDelta2 = 100;
-    private int yDelta2 = 100;
+    private float xDelta = 100;
+    private float yDelta = 100;
+    private float xDir = 1f;
+    private float yDir = 1f;
+    private Color color = new Color(64, 130, 109);
 
     /**
      * Gli oggetti Inputs prendono in riferimento questo stesso panel
@@ -42,23 +44,13 @@ public class GamePanel extends JPanel {
      */
     public void changeXDelta(int value) {
         this.xDelta += value;
-        repaint();
+
     }
 
     public void changeYDelta(int value) {
         this.yDelta += value;
-        repaint();
     }
 
-    public void changeXDelta2(int value) {
-        this.xDelta2 += value;
-        repaint();
-    }
-
-    public void changeYDelta2(int value) {
-        this.yDelta2 += value;
-        repaint();
-    }
 
     /**
      * Muove l'oggetto nella posizione cliccata
@@ -69,7 +61,6 @@ public class GamePanel extends JPanel {
     public void setRectPosition(int x, int y) {
         this.xDelta = x;
         this.yDelta = y;
-        repaint();
     }
 
     /**
@@ -82,6 +73,50 @@ public class GamePanel extends JPanel {
      */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.fillRect(xDelta, yDelta, 200, 50);
+        updateRectangle();
+        g.setColor(color);
+        g.fillRect((int) xDelta, (int) yDelta, 200, 50);
+
+    }
+
+    /**
+     * indica i limiti entro i quali l'oggetto può muoversi senza rimbalzare
+     *
+     * @param delta è la posizione dell'oggetto
+     * @param dir   è la direzione che sta prendendo
+     * @return ritorna il valore della direzione
+     */
+    private float changeDirection(float delta, float dir) {
+        if (delta > 400 || delta < 0) {
+            dir *= -1;
+            color = new Color(
+                    getRandomValue(),
+                    getRandomValue(),
+                    getRandomValue());
+        }
+        return dir;
+    }
+
+    /**
+     * Crea un valore casuale per l'RGB
+     *
+     * @return un intero casuale
+     */
+    private int getRandomValue() {
+        Random random = new Random();
+        return random.nextInt(255);
+    }
+
+    /**
+     * questo metodo porta a cambiare la direzione dell'oggetto quando tocca il
+     * bordo
+     */
+    private void updateRectangle() {
+
+        xDelta += xDir;
+        xDir = changeDirection(xDelta, xDir);
+
+        yDelta += yDir;
+        yDir = changeDirection(yDelta, yDir);
     }
 }
