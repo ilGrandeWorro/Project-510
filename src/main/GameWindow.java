@@ -1,7 +1,6 @@
 package src.main;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class GameWindow extends JFrame {
     /**
@@ -12,10 +11,11 @@ public class GameWindow extends JFrame {
      * è importante metterla in fondo al costruttore per evitare bug visivi.
      */
     public GameWindow(GamePanel gamePanel){
-        setSize(400, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         add(gamePanel);
         setLocationRelativeTo(null);
+        setResizable(false);
+        pack();
         setVisible(true);
     }
 }

@@ -1,5 +1,7 @@
 package src.main;
 
+import java.io.IOException;
+
 /**
  * In this class we link all the format components and inputs together
  */
@@ -11,7 +13,7 @@ public class Game implements Runnable {
     private int frames = 0;
     private long lastCheck = System.currentTimeMillis();
 
-    public Game() {
+    public Game() throws IOException {
         gamePanel = new GamePanel();
         gameWindow = new GameWindow(gamePanel);
         gamePanel.requestFocus();
